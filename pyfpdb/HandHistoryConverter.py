@@ -95,9 +95,10 @@ out_path  (default '-' = sys.stdout)
         # Tourney object used to store TourneyInfo when called to deal with a Summary file
         self.tourney = None
 
-        if in_path == '-':
-            self.in_fh = sys.stdin
-        self.out_fh = get_out_fh(out_path, self.import_parameters)
+        # Pokercloud takes its data directly from in_path
+        #if in_path == '-':
+        #    self.in_fh = sys.stdin
+        #self.out_fh = get_out_fh(out_path, self.import_parameters)
 
         self.compiledPlayers   = set()
         self.maxseats  = 0
@@ -456,9 +457,11 @@ or None if we fail to get the info """
             for kodec in self.__listof(self.codepage):
                 #print "trying", kodec
                 try:
+                    #in_fh = codecs.open(self.in_path, 'r', kodec)
+                    #self.whole_file = in_fh.read()
+                    #in_fh.close()
+                    # Pokercloud hack
                     in_fh = codecs.open(self.in_path, 'r', kodec)
-                    self.whole_file = in_fh.read()
-                    in_fh.close()
                     self.obs = self.whole_file[self.index:]
                     self.index = len(self.whole_file)
                     self.kodec = kodec

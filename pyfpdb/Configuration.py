@@ -115,6 +115,9 @@ else:
     APPDATA_PATH = False
     CONFIG_PATH = False
 
+# Dirty hack to make pokercloud work
+CONFIG_PATH = '.'
+
 if os.name == 'posix':
     POSIX = True
 else:
@@ -220,6 +223,9 @@ def set_logfile(file_name):
 
 def check_dir(path, create = True):
     """Check if a dir exists, optionally creates if not."""
+    # Dont do this for pokercloud
+    return False
+
     if os.path.exists(path):
         if os.path.isdir(path):
             return path
